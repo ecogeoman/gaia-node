@@ -1,62 +1,109 @@
 {
-  "#!GAIA_CONTEXT": "1.0",
-  "version": "V5",
-  "project": "GAIA",
-  "mode": "public_seed",
-  "status": "active",
-  "created": "2026-04-28",
-  "review_after": "2026-07-01",
+  "version": "V5.1",
+  "role": "GAIA_PUBLIC_ENTRYPOINT",
+  "mode": "controlled_seed",
 
-  "entrypoint": "https://www.gaia-node.com",
+  "entrypoint": {
+    "type": "human_and_agent",
+    "description": "Minimal public loader for GAIA. Provides execution rules and context discipline without exposing private system structure."
+  },
+
+  "core_rules": {
+    "access": "Only explicitly provided content exists. References are not loaded content.",
+    "no_assumption": "No file, path, or module is accessible unless injected in the session.",
+    "priority": [
+      "explicit_input",
+      "current_state",
+      "recent_context",
+      "historical_support"
+    ],
+    "conflict_resolution": "Current validated state overrides historical or inferred context.",
+    "boundary": "Strict separation between public and private data. No sensitive inference allowed."
+  },
+
+  "context_model": {
+    "memory_types": {
+      "hot": "Active context, current objective, constraints",
+      "cold": "Archive, historical snapshots, non-driving information"
+    },
+    "rule": "Cold memory informs but never drives decisions."
+  },
+
+  "execution_model": {
+    "trigger": "GAIA RUN: [objective]",
+    "requirement": "Execution only valid if sufficient explicit context is provided",
+    "steps": [
+      "suggestions (max 3)",
+      "analysis (impact / effort / risk)",
+      "decision (1 action)",
+      "method (M1–M5)",
+      "execution (requires validation)",
+      "feedback (result / cause / learning)"
+    ],
+    "constraints": [
+      "No execution without explicit validation",
+      "No invention of missing context",
+      "Maximum 3 suggestions",
+      "Decision is mandatory"
+    ]
+  },
+
+  "method_engine": {
+    "available_methods": {
+      "M1": "Action Research (default)",
+      "M2": "Architecture-Driven",
+      "M3": "Ablation Study",
+      "M4": "Metric-Driven (requires explicit criteria)",
+      "M5": "Red Teaming"
+    },
+    "rule": "Any structural action must declare a method before execution."
+  },
+
+  "index_logic": {
+    "type": "navigation_only",
+    "rule": "An index does not provide content. It only defines load order and dependencies.",
+    "availability": {
+      "explicit": "usable",
+      "unknown": "reference only"
+    }
+  },
+
+  "failsafe": {
+    "missing_control": "Abort execution",
+    "missing_execution_modules": "Degraded execution with warning",
+    "missing_memory": "Continue without historical reference"
+  },
+
+  "system_posture": {
+    "design": "minimal",
+    "infrastructure": "serverless",
+    "cost": "zero",
+    "exposure": "controlled",
+    "goal": "stable public bootstrap for GAIA"
+  },
+
+  "security_posture": {
+    "public_level": "safe",
+    "internal_structure_exposed": false,
+    "local_paths_exposed": false,
+    "private_modules_exposed": false
+  },
 
   "interfaces": {
-    "human":   "https://www.gaia-node.com",
-    "machine": "https://www.gaia-node.com/gaia-context.json"
-  },
-
-  "load_priority": [
-    { "step": 1, "id": "GAIA_CONTEXT_CORE",    "role": "access rules + orchestration constraints", "required": true  },
-    { "step": 2, "id": "GAIA_STATE_REFERENCE",  "role": "current system state",                     "required": true  },
-    { "step": 3, "id": "CTXM-001",              "role": "meta layer snapshot",                       "required": false },
-    { "step": 4, "id": "CTXN_gaia.index.core",  "role": "navigation index",                          "required": false }
-  ],
-
-  "boundary": {
-    "public":  ["entrypoint", "gaia-context.json"],
-    "private": ["GAIA_PRIVATE/", "GAIA_OPS/", "meta/", "GAIA_START_FIRST/"]
-  },
-
-  "current_layer": "public_navigation",
-
-  "system": {
-    "format_version":   "CTXM/1.0 + CTXN/1.0",
-    "execution_engine": "GAIA_V3_AUTORUN",
-    "decision_engine":  "GAIA_DECISION_ENGINE",
-    "method_engine":    "GAIA_METHOD_ENGINE (M1–M5)",
-    "flow":             "GAIA_V2_FLOW"
-  },
-
-  "trigger": {
-    "syntax":       "GAIA RUN: [objectif]",
-    "description":  "Single-line trigger that generates a full GAIA V2 session block",
-    "requires":     ["GAIA_CONTEXT_CORE loaded", "GAIA_STATE_REFERENCE loaded", "CTXN loaded"]
+    "human": "web page",
+    "machine": "json",
+    "execution": "manual trigger via GAIA RUN"
   },
 
   "next_targets": [
-    "inject GAIA_CONTEXT_CORE",
-    "inject GAIA_STATE_REFERENCE",
-    "trigger GAIA RUN: [objectif]"
+    "context injection standard",
+    "agent-compatible loader",
+    "lightweight execution interface"
   ],
 
   "usage": {
-    "agent":   "Load this file as bootstrap seed. Follow load_priority to inject dependencies before triggering GAIA RUN.",
-    "human":   "Visit https://www.gaia-node.com — click 'Charger le contexte' to load this JSON.",
-    "rules": [
-      "path ≠ content loaded",
-      "reference ≠ proof of access",
-      "non-injected file ≠ available",
-      "public boundary must not expose private layer",
-      "availability: explicit required before any decision"
-    ]
+    "human": "Read and understand GAIA entry logic",
+    "agent": "Use as bootstrap rules, not as full system",
+    "rule": "Do not assume access to any external file"
   }
 }
