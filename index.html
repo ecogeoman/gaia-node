@@ -4,150 +4,67 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GAIA Node</title>
-  <meta name="description" content="GAIA Node — point d’entrée public pour contexte, gouvernance et infrastructure GAIA." />
+  <meta name="description" content="GAIA Node — point d’entrée public, contexte machine et loader GAIA." />
   <style>
     :root {
-      --bg: #070b10;
-      --cyan: #00f0ff;
-      --green: #00ff9c;
-      --text: #e8f7ff;
-      --muted: #8aa3ad;
-      --yellow: #ffd166;
-      --panel: rgba(255,255,255,.06);
-      --border: rgba(0,240,255,.24);
+      --bg:#070b10; --cyan:#00f0ff; --green:#00ff9c; --text:#e8f7ff;
+      --muted:#8aa3ad; --yellow:#ffd166; --panel:rgba(255,255,255,.06);
+      --border:rgba(0,240,255,.24);
     }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(0,240,255,.18), transparent 30%),
-        radial-gradient(circle at 85% 75%, rgba(0,255,156,.12), transparent 32%),
-        linear-gradient(135deg, #05070a, var(--bg));
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px;
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; font-family:Arial,Helvetica,sans-serif;
+      background:radial-gradient(circle at 15% 20%,rgba(0,240,255,.18),transparent 30%),
+                 radial-gradient(circle at 85% 75%,rgba(0,255,156,.12),transparent 32%),
+                 linear-gradient(135deg,#05070a,var(--bg));
+      color:var(--text); display:flex; align-items:center; justify-content:center; padding:32px;
     }
-    .shell {
-      width: min(1120px, 100%);
-      border: 1px solid var(--border);
-      background: rgba(7,11,16,.78);
-      box-shadow: 0 0 70px rgba(0,240,255,.13);
-      border-radius: 28px;
-      padding: 34px;
-    }
-    .top, .footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .brand {
-      letter-spacing: .18em;
-      color: var(--cyan);
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .status {
-      color: var(--green);
-      font-size: 14px;
-      border: 1px solid rgba(0,255,156,.28);
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(0,255,156,.06);
-    }
-    h1 {
-      margin: 54px 0 0;
-      color: var(--cyan);
-      font-size: clamp(42px, 8vw, 88px);
-      line-height: .95;
-      letter-spacing: -.05em;
-    }
-    .subtitle {
-      max-width: 760px;
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: clamp(18px, 2vw, 22px);
-      line-height: 1.55;
-    }
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 30px;
-    }
-    .btn {
-      text-decoration: none;
-      border-radius: 999px;
-      padding: 13px 18px;
-      font-weight: 700;
-      font-size: 14px;
-      color: #001014;
-      background: var(--cyan);
-    }
-    .btn.secondary {
-      color: var(--text);
-      background: transparent;
-      border: 1px solid rgba(255,255,255,.18);
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 46px;
-    }
-    .card {
-      border: 1px solid rgba(255,255,255,.10);
-      background: var(--panel);
-      border-radius: 20px;
-      padding: 22px;
-      min-height: 150px;
-    }
-    .card h2 {
-      margin: 0 0 12px;
-      font-size: 18px;
-    }
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 15px;
-    }
-    .footer {
-      margin-top: 42px;
-      color: var(--muted);
-      font-size: 14px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 22px;
-    }
-    .tag { color: var(--yellow); }
-    @media (max-width: 820px) {
-      .grid { grid-template-columns: 1fr; }
-      .shell { padding: 24px; }
-    }
+    .shell{width:min(1120px,100%); border:1px solid var(--border); background:rgba(7,11,16,.8);
+      box-shadow:0 0 70px rgba(0,240,255,.13); border-radius:28px; padding:34px}
+    .top,.footer{display:flex; justify-content:space-between; gap:16px; align-items:center; flex-wrap:wrap}
+    .brand{letter-spacing:.18em; color:var(--cyan); font-size:14px; font-weight:700}
+    .status{color:var(--green); font-size:14px; border:1px solid rgba(0,255,156,.28);
+      padding:8px 12px; border-radius:999px; background:rgba(0,255,156,.06)}
+    h1{margin:54px 0 0; color:var(--cyan); font-size:clamp(42px,8vw,88px); line-height:.95; letter-spacing:-.05em}
+    .subtitle{max-width:780px; margin-top:24px; color:var(--muted); font-size:clamp(18px,2vw,22px); line-height:1.55}
+    .actions{display:flex; flex-wrap:wrap; gap:14px; margin-top:30px}
+    button,.btn{cursor:pointer; text-decoration:none; border-radius:999px; padding:13px 18px; font-weight:700;
+      font-size:14px; border:none; color:#001014; background:var(--cyan)}
+    .secondary{color:var(--text); background:transparent; border:1px solid rgba(255,255,255,.18)}
+    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:46px}
+    .card{border:1px solid rgba(255,255,255,.10); background:var(--panel); border-radius:20px; padding:22px; min-height:150px}
+    .card h2{margin:0 0 12px; font-size:18px}
+    .card p{margin:0; color:var(--muted); line-height:1.5; font-size:15px}
+    .loader{display:none; margin-top:26px; border:1px solid rgba(0,240,255,.18); border-radius:20px; padding:20px; background:rgba(0,240,255,.04)}
+    .loader.active{display:block}
+    pre{white-space:pre-wrap; word-break:break-word; color:#d8fbff; font-size:14px; line-height:1.45; margin:0}
+    .footer{margin-top:42px; color:var(--muted); font-size:14px; border-top:1px solid rgba(255,255,255,.08); padding-top:22px}
+    .tag{color:var(--yellow)}
+    @media(max-width:820px){.grid{grid-template-columns:1fr}.shell{padding:24px}}
   </style>
 </head>
 <body>
   <main class="shell">
     <section class="top">
       <div class="brand">GAIA NODE</div>
-      <div class="status">● ONLINE — FUNCTIONAL ENTRYPOINT</div>
+      <div class="status">● ONLINE — LIVE CONTEXT LOADER</div>
     </section>
 
     <section>
       <h1>GAIA<br />ENTRY NODE</h1>
       <p class="subtitle">
-        Point d’entrée public pour GAIA. Cette page donne accès à une couche lisible par humain
-        et à un contexte machine simple pour amorcer les futurs modules.
+        Point d’entrée public pour GAIA. Cette V4 active le contexte machine directement dans l’interface :
+        la page ne présente plus seulement GAIA, elle charge son état public minimal.
       </p>
 
       <div class="actions">
-        <a class="btn" href="./gaia-context.json">Ouvrir le contexte GAIA</a>
+        <button onclick="loadContext()">Charger le contexte GAIA</button>
+        <a class="btn secondary" href="./gaia-context.json">Ouvrir le JSON</a>
         <a class="btn secondary" href="https://github.com/ecogeoman/gaia-node" target="_blank" rel="noopener">Voir la source</a>
+      </div>
+
+      <div id="loader" class="loader">
+        <pre id="context-output">Chargement...</pre>
       </div>
     </section>
 
@@ -158,20 +75,48 @@
       </article>
 
       <article class="card">
-        <h2>02 — Contexte</h2>
-        <p>Entrée publique minimale pour lecture humaine et exploitation IA.</p>
+        <h2>02 — Loader</h2>
+        <p>Le contexte public GAIA est chargé côté navigateur depuis un fichier machine-readable.</p>
       </article>
 
       <article class="card">
-        <h2>03 — Évolution</h2>
-        <p>Base prévue pour dashboard, API, documentation publique ou modules NyxFlow.</p>
+        <h2>03 — Suite</h2>
+        <p>Base prête pour index public, dashboard statique, API future ou modules NyxFlow.</p>
       </article>
     </section>
 
     <section class="footer">
       <div>gaia-node.com</div>
-      <div class="tag">V3 · Functional Static Layer</div>
+      <div class="tag">V4 · Live Static Loader</div>
     </section>
   </main>
+
+  <script>
+    async function loadContext() {
+      const panel = document.getElementById("loader");
+      const output = document.getElementById("context-output");
+      panel.classList.add("active");
+      output.textContent = "Chargement du contexte GAIA...";
+
+      try {
+        const response = await fetch("./gaia-context.json", { cache: "no-store" });
+        if (!response.ok) throw new Error("Fichier contexte introuvable");
+        const data = await response.json();
+
+        output.textContent =
+          "GAIA CONTEXT LOADED ✅\n\n" +
+          "Projet : " + data.project + "\n" +
+          "Version : " + data.version + "\n" +
+          "Statut : " + data.status + "\n" +
+          "Type : " + data.type + "\n" +
+          "Domaine : " + data.domain + "\n\n" +
+          "Objectif :\n" + data.purpose + "\n\n" +
+          "Capacités :\n- " + data.capabilities.join("\n- ") + "\n\n" +
+          "Cibles suivantes :\n- " + data.next_targets.join("\n- ");
+      } catch (error) {
+        output.textContent = "Erreur de chargement ❌\n" + error.message;
+      }
+    }
+  </script>
 </body>
 </html>
