@@ -1,26 +1,62 @@
 {
-  "project": "GAIA Node",
-  "version": "V3",
-  "status": "online",
-  "type": "public_static_entrypoint",
-  "domain": "https://www.gaia-node.com",
-  "purpose": "Public entry point for GAIA context, governance, architecture and future infrastructure modules.",
-  "current_layer": "static",
-  "hosting": {
-    "provider": "Vercel",
-    "serverless": false,
-    "personal_server_required": false
+  "#!GAIA_CONTEXT": "1.0",
+  "version": "V5",
+  "project": "GAIA",
+  "mode": "public_seed",
+  "status": "active",
+  "created": "2026-04-28",
+  "review_after": "2026-07-01",
+
+  "entrypoint": "https://www.gaia-node.com",
+
+  "interfaces": {
+    "human":   "https://www.gaia-node.com",
+    "machine": "https://www.gaia-node.com/gaia-context.json"
   },
-  "capabilities": [
-    "public presence",
-    "human-readable entrypoint",
-    "machine-readable context seed",
-    "future dashboard/API-ready structure"
+
+  "load_priority": [
+    { "step": 1, "id": "GAIA_CONTEXT_CORE",    "role": "access rules + orchestration constraints", "required": true  },
+    { "step": 2, "id": "GAIA_STATE_REFERENCE",  "role": "current system state",                     "required": true  },
+    { "step": 3, "id": "CTXM-001",              "role": "meta layer snapshot",                       "required": false },
+    { "step": 4, "id": "CTXN_gaia.index.core",  "role": "navigation index",                          "required": false }
   ],
+
+  "boundary": {
+    "public":  ["entrypoint", "gaia-context.json"],
+    "private": ["GAIA_PRIVATE/", "GAIA_OPS/", "meta/", "GAIA_START_FIRST/"]
+  },
+
+  "current_layer": "public_navigation",
+
+  "system": {
+    "format_version":   "CTXM/1.0 + CTXN/1.0",
+    "execution_engine": "GAIA_V3_AUTORUN",
+    "decision_engine":  "GAIA_DECISION_ENGINE",
+    "method_engine":    "GAIA_METHOD_ENGINE (M1–M5)",
+    "flow":             "GAIA_V2_FLOW"
+  },
+
+  "trigger": {
+    "syntax":       "GAIA RUN: [objectif]",
+    "description":  "Single-line trigger that generates a full GAIA V2 session block",
+    "requires":     ["GAIA_CONTEXT_CORE loaded", "GAIA_STATE_REFERENCE loaded", "CTXN loaded"]
+  },
+
   "next_targets": [
-    "GAIA public index",
-    "context loader",
-    "dashboard shell",
-    "NyxFlow module entry"
-  ]
+    "inject GAIA_CONTEXT_CORE",
+    "inject GAIA_STATE_REFERENCE",
+    "trigger GAIA RUN: [objectif]"
+  ],
+
+  "usage": {
+    "agent":   "Load this file as bootstrap seed. Follow load_priority to inject dependencies before triggering GAIA RUN.",
+    "human":   "Visit https://www.gaia-node.com — click 'Charger le contexte' to load this JSON.",
+    "rules": [
+      "path ≠ content loaded",
+      "reference ≠ proof of access",
+      "non-injected file ≠ available",
+      "public boundary must not expose private layer",
+      "availability: explicit required before any decision"
+    ]
+  }
 }
