@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Protection des ressources internes
+Disallow: /gaia-context.json
+Disallow: /api/
+
+# Empêche l’indexation de fichiers techniques potentiels
+Disallow: /*.json$
+Disallow: /*.log$
+Disallow: /*.env$
+
+# Sitemap minimal (optionnel mais propre)
+Sitemap: https://www.gaia-node.com/sitemap.xml
