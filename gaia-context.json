@@ -1,0 +1,26 @@
+{
+  "project": "GAIA Node",
+  "version": "V3",
+  "status": "online",
+  "type": "public_static_entrypoint",
+  "domain": "https://www.gaia-node.com",
+  "purpose": "Public entry point for GAIA context, governance, architecture and future infrastructure modules.",
+  "current_layer": "static",
+  "hosting": {
+    "provider": "Vercel",
+    "serverless": false,
+    "personal_server_required": false
+  },
+  "capabilities": [
+    "public presence",
+    "human-readable entrypoint",
+    "machine-readable context seed",
+    "future dashboard/API-ready structure"
+  ],
+  "next_targets": [
+    "GAIA public index",
+    "context loader",
+    "dashboard shell",
+    "NyxFlow module entry"
+  ]
+}
